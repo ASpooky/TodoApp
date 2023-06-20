@@ -138,3 +138,7 @@ STATICFILES_DIRS=[
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL="application.Users"
+
+LOGIN_URL="/application/login"
+
+SESSION_COOKIE_AGE=3600

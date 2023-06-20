@@ -1,9 +1,12 @@
 from django import forms
 from .models import Users,Target
 from django.contrib.auth.password_validation import validate_password
-import time
+import datetime
 
-class RegistForm(forms.ModelForm):
+class DateInput(forms.DateInput):
+    input_type="date"
+
+class UserRegistForm(forms.ModelForm):
     username=forms.CharField(label="名前")
     email=forms.EmailField(label="メールアドレス")
     password=forms.CharField(label="パスワード",widget=forms.PasswordInput())
@@ -20,3 +23,19 @@ class RegistForm(forms.ModelForm):
         user.set_password(self.cleaned_data["password"])
         user.save()
         return user
+    
+class LoginForm(forms.Form):
+    email=forms.EmailField(label="メールアドレス")
+    password=forms.CharField(label="パスワード",widget=forms.PasswordInput())
+
+class TargetRegistForm(forms.ModelForm):
+    title=forms.CharField(label="目標",max_length=150)
+    d_today=datetime.date.today()
+    memo=forms.CharField(label="メモ",max_length=300)
+    start=forms.DateField(label="始めた日",initial=d_today,widget=DateInput())
+    deadline=forms.DateField(label="終了予定",initial=d_today,widget=DateInput())
+
+    class Meta:
+        model=Target
+        fields=["title","memo","start","deadline"]
+

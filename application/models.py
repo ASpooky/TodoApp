@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from django.contrib.auth.models import (
     AbstractBaseUser,PermissionsMixin,BaseUserManager
 )
@@ -33,7 +34,10 @@ class Users(AbstractBaseUser,PermissionsMixin):
 
 class Target(models.Model):
     title=models.CharField(max_length=150)
-    start=models.DateField()
+    memo=models.TextField()
+    start=models.DateField(default=timezone.now)
+    deadline=models.DateField(default=timezone.now)
+    clear=models.BooleanField(default=False)
 
     class Meta:
         db_table="target"

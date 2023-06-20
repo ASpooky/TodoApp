@@ -4,6 +4,9 @@
   width: 100%;
 
   &__container {
-    background-color: rgb(252, 222, 222);
+    display: flex;
+    justify-content: space-between;
+    font-size: 40px;
+    background-color: rgb(231, 231, 231);
   }
 }
