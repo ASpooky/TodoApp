@@ -3,19 +3,17 @@
 
 {% block css%}
 <link rel="stylesheet" href="{% static 'css\index.css' %}">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css">
 {% endblock %}
 
 {% block content %}
-
-<div id='calendar'></div>
-
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="シフト送信">
+</form>
 {% endblock %}
 
 {% block javascript%}
-
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js"></script>
-<script src="{% static 'javascript/app.js' %}"></script>
-
+<script src="{% static 'javascript/regist.js' %}"></script>
 {% endblock %}

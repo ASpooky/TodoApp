@@ -51,11 +51,14 @@ class LogoutView(FormView):
         logout(request)
         return redirect("application:login")
         
+class TargetListView(LoginRequiredMixin,TemplateView):
+    template_name=os.path.join("application","target_list.html")
+
 class TargetRegistView(LoginRequiredMixin,CreateView):
     template_name=os.path.join("application","target_regist.html")
     form_class=TargetRegistForm
 
-    success_url=reverse_lazy("application:index")
+    success_url=reverse_lazy("application:target_list")
 
 def get_targets(request):
 
@@ -63,6 +66,8 @@ def get_targets(request):
         return Http404()
     
     datas = json.loads(request.body)
+
+    print(request.body)
     
     start=datas["start_date"]
     deadline=datas["end_date"]
@@ -80,12 +85,14 @@ def get_targets(request):
 
     list = []
     for t in target:
+        color="grey" if t.clear else "rgb(83, 187, 195)"
         list.append(
             {
             "title": t.title,
             "start": t.start,
-            "deadline": t.deadline,
+            "end": t.deadline,
             "clear":t.clear,
+            "color":color,
             }
         )
 

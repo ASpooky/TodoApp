@@ -3,6 +3,7 @@
 
 {% block css%}
 <link rel="stylesheet" href="{% static 'css\index.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css">
 {% endblock %}
 
 {% block content %}
@@ -16,5 +17,6 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js"></script>
 <script src="{% static 'javascript/app.js' %}"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/ja.js"></script>
 {% endblock %}

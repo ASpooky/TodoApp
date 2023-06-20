@@ -10,12 +10,14 @@ document.addEventListener("DOMContentLoaded", function () {
     // 日付をクリック、または範囲を選択したイベント
     selectable: true,
     select: function (info) {
-      alert("selected " + info.startStr + " to " + info.endStr);
+      moment.locale("ja");
+      start = moment(info.start).format("YYYY-MM-DD");
+      return window.location.replace(start);
     },
 
     events: function (info, successCallback, failureCallback) {
       axios
-        .post("/application/target_list/", {
+        .post("/application/target_get/", {
           start_date: info.start.valueOf(),
           end_date: info.end.valueOf(),
         })
