@@ -60,14 +60,15 @@ class TargetRegistView(LoginRequiredMixin,CreateView):
 
     success_url=reverse_lazy("application:target_list")
 
+def target_regist(request):
+    return render(request,"application/regist.html")
+
 def get_targets(request):
 
     if request.method=="GET":
         return Http404()
     
     datas = json.loads(request.body)
-
-    print(request.body)
     
     start=datas["start_date"]
     deadline=datas["end_date"]
@@ -80,8 +81,6 @@ def get_targets(request):
     target=Target.objects.filter(
         start__lt=formatted_end_date,deadline__gt=formatted_start_date
     )
-
-    print(target)
 
     list = []
     for t in target:
