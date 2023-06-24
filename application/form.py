@@ -1,6 +1,8 @@
+from typing import Any, Dict
 from django import forms
 from .models import Users,Target
 from django.contrib.auth.password_validation import validate_password
+from django.shortcuts import get_object_or_404
 import datetime
 
 class DateInput(forms.DateInput):
@@ -29,13 +31,24 @@ class LoginForm(forms.Form):
     password=forms.CharField(label="パスワード",widget=forms.PasswordInput())
 
 class TargetRegistForm(forms.ModelForm):
-    title=forms.CharField(label="目標",max_length=150)
+    title=forms.CharField(label="目標",max_length=150,error_messages={'required': '予定や目標を自由に登録しよう'})
     d_today=datetime.date.today()
-    memo=forms.CharField(label="メモ",max_length=300)
+    memo=forms.CharField(label="メモ",max_length=300,required=False)
     start=forms.DateField(label="始めた日",initial=d_today,widget=DateInput())
     deadline=forms.DateField(label="終了予定",initial=d_today,widget=DateInput())
 
+    
     class Meta:
         model=Target
         fields=["title","memo","start","deadline"]
+
+class TargetUpdateForm(forms.ModelForm):
+    
+    memo=forms.CharField(label="メモ",max_length=300,required=False)
+    id=forms.CharField(widget=forms.HiddenInput())
+
+    class Meta:
+        model=Target
+        fields=["memo","id"]
+
 

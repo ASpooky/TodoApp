@@ -61,6 +61,17 @@ document.addEventListener("DOMContentLoaded", function () {
       post(path, { start: start, deadline: start });
     },
 
+    eventClick: function (info, successCallback) {
+      post(
+        "/application/target_update/",
+        {
+          start: info.event.start.valueOf(),
+          title: info.event.title,
+        },
+        (method = "get")
+      );
+    },
+
     events: function (info, successCallback, failureCallback) {
       axios
         .post("/application/target_get/", {
@@ -75,20 +86,6 @@ document.addEventListener("DOMContentLoaded", function () {
           // バリデーションエラーなど
           alert("登録に失敗しました");
         });
-    },
-    eventClick: function (event) {
-      //console.dir(event); オブジェクトの中身をチェック。
-
-      var title = prompt("予定を更新してください:");
-
-      if (title && title != "") {
-        event.title = title;
-        //イベント（予定）の修正
-        $("#calendar").fullCalendar("updateEvent", event);
-      } else {
-        //イベント（予定）の削除  idを指定して削除。
-        $("#calendar").fullCalendar("removeEvents", event.id);
-      }
     },
   });
 
