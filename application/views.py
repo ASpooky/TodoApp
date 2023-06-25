@@ -2,7 +2,7 @@ import os
 import json
 import time
 import datetime
-from typing import Any
+from typing import Any, Dict
 from django import http
 
 from django.utils import timezone
@@ -89,10 +89,13 @@ class TargetUpdateView(LoginRequiredMixin,UpdateView):
     model=Target
     success_url=reverse_lazy("application:target_list")
 
-    def get(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
-        return super().get(request, *args, **kwargs)#ここを変更してhtmlでpkを受け取れるようにする
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context=super().get_context_data(**kwargs)
+        context["pk"]=context["target"].id
+        return context#ここを変更してhtmlでpkを受け取れるようにする
 
 class TargetDeleteView(LoginRequiredMixin,DeleteView):
+    template_name=os.path.join("application","target_delete.html")
     model=Target
     success_url=reverse_lazy("application:target_list")
     
@@ -152,5 +155,4 @@ def get_update_target(request: HttpRequest, *args: Any, **kwargs: Any) -> HttpRe
 
         t=target.first()
 
-        print(t.title,t.start,t.deadline)
         return redirect("application:target_update",pk=t.id)

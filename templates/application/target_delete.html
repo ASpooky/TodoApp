@@ -6,12 +6,11 @@
 {% endblock %}
 
 {% block content %}
+<h2>本当に削除しますがよろしいですか?</h2>
 <form method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="情報更新">
+    <input type="submit" value="削除">
 </form>
-<a href="{% url 'application:target_delete' pk=pk %}">削除する</a>
 {% endblock %}
 
 {% block javascript%}
