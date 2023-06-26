@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css%}
+<link rel="stylesheet" href="{% static 'css\index.css' %}">
+{% endblock %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="情報更新">
+</form>
+<a href="{% url 'application:target_delete' pk=pk %}">削除する</a>
+{% endblock %}
+
+{% block javascript%}
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="{% static 'javascript/regist.js' %}"></script>
+{% endblock %}
