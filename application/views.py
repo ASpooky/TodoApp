@@ -126,7 +126,7 @@ def get_targets(request):
 
     list = []
     for t in target:
-        color="grey" if t.clear else "rgb(83, 187, 195)"
+        color="rgb(204, 204, 204)" if t.clear else "rgb(83, 187, 195)"
         list.append(
             {
             "title": t.title,

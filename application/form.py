@@ -36,19 +36,20 @@ class TargetRegistForm(forms.ModelForm):
     memo=forms.CharField(label="メモ",max_length=300,required=False)
     start=forms.DateField(label="始めた日",initial=d_today,widget=DateInput())
     deadline=forms.DateField(label="終了予定",initial=d_today,widget=DateInput())
-
     
     class Meta:
         model=Target
         fields=["title","memo","start","deadline"]
+        
 
 class TargetUpdateForm(forms.ModelForm):
     
     memo=forms.CharField(label="メモ",max_length=300,required=False)
+    clear=forms.BooleanField(initial=False,required=False)
     id=forms.CharField(widget=forms.HiddenInput())
 
     class Meta:
         model=Target
-        fields=["memo","id"]
+        fields=["memo","clear","id"]
 
 
